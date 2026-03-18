@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Java 17
+      # 2. Setup Java 21
       - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
@@ -71,7 +71,17 @@ jobs:
       - name: Setup Helm
         uses: azure/setup-helm@v3
 
-      # 8. Deploy services avec Helm
+      # 8. Configurer kubectl avec le secret KUBE_CONFIG_DATA
+      - name: Configure kubectl
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+
+      # 9. Test connexion Kubernetes
+      - name: Test kubectl connection
+        run: kubectl get nodes
+
+      # 10. Deploy services avec Helm
       - name: Deploy Config Service
         run: helm upgrade --install config-service ./charts/config-service
 
