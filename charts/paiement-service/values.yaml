@@ -1,8 +1,8 @@
 replicaCount: 1
 image:
-  repository: paiement-service
+  repository: mouloudbouderka/paiement-service
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 service:
   type: ClusterIP
   port: 8083

@@ -1,8 +1,8 @@
 replicaCount: 1
 image:
-  repository: discovery-service
+  repository: mouloudbouderka/discovery-service
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 service:
   type: NodePort
   port: 8761
